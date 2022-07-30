@@ -381,6 +381,7 @@ tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
 from sklearn.metrics import accuracy_score
 
 #print("Accuracy score: " ,accuracy_score(y_test, y_pred))
+accuracy_lr = accuracy_score(y_test, y_pred)
 
 # On importe la fonction balanced_accuracy_score du module metrics de la librairie Scikit Learn
 
@@ -395,6 +396,7 @@ from sklearn.metrics import balanced_accuracy_score
 # On affiche la balanced accuracy du modèle 
 
 #print("Balanced accuracy:",balanced_accuracy_score(y_test,y_pred))
+balance_accuracy = balanced_accuracy_score(y_test,y_pred)
 
 # Les résultats obtenus avec la balanced accuracy sont  plus faibles que ceux obtenus avec 
 # l'accuracy : 0.70 contre 0.79. 
