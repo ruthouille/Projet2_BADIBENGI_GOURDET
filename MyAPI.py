@@ -1,16 +1,7 @@
 from httplib2 import Authentication
-from numpy import kaiser
 import secrets
-import pandas as pd
-from re import sub
-from unicodedata import name
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
-from typing import Optional
-from random import seed
-from random import choice
-from random import shuffle
-import numpy as np
 import json
 from pydantic import BaseModel
 from churn_de_badibengi_gourdet import  y_pred_test_knn, y_pred_clf, y_pred, accuracy_knn, accuracy_clf, accuracy_lr, balance_accuracy, coeff, intercept, odd_ratios, tn, fp, fn, tp
@@ -93,8 +84,8 @@ def read_dtree_predict(username: str = Depends(get_username)):
     """Returns the 10 first DecisionTreeClassifier predictions
     """
     l = []
-    for i in range(y_pred.shape[0]):
-       l.append(int(y_pred[i]))
+    for i in range(y_pred_clf.shape[0]):
+       l.append(int(y_pred_clf[i]))
     return l[:10]
     
     
