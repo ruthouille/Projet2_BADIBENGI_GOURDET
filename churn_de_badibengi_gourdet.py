@@ -43,7 +43,7 @@ df.head(10)
 
 df.isna().sum()
 
-print("Il y a", df.isna().any().sum(), "valeur manquante")
+#print("Il y a", df.isna().any().sum(), "valeur manquante")
 
 """> Aucune valeur manquante n'a été détectée.
 
@@ -266,7 +266,7 @@ y=y.astype('int')
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.30, random_state = 42, stratify = y)
 
-print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
+#print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
 
 #Classification non-linéaire: modèle des K-Nearest Neighbors 
 
@@ -284,6 +284,7 @@ y_pred_test_knn = knn.predict(X_test)
 
 # Affichage des 10 premières prédictions
 print(y_pred_test_knn[:10])
+accuracy_knn = metrics.accuracy_score(y_test, y_pred_test_knn)
 
 # On créer un decision tree de type Classifier car on est dans une problématique d'apprentissage supervisé de type régression logistique (classification)
 clf = tree.DecisionTreeClassifier()
@@ -293,9 +294,9 @@ clf = clf.fit(X_train, y_train)
 
 # On decide de faire une predicition pour notre variable test
 y_pred_clf = clf.predict(X_test)
-
+accuracy_clf = metrics.accuracy_score(y_test, y_pred_clf)
 # On affiche l'accuracy de notre decision tree
-print("Accuracy:", metrics.accuracy_score(y_test, y_pred_clf))
+#print("Accuracy:", metrics.accuracy_score(y_test, y_pred_clf))
 
 #Entraînement du modèle 
 
@@ -373,13 +374,13 @@ from sklearn.metrics import confusion_matrix
 confusion_matrix(y_test, y_pred)
 
 tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
-print("\n Vrais négatifs:",tn,"\n Faux positifs:",fp,"\n Faux négatifs:",fn,"\n Vrais positifs:",tp)
+#print("\n Vrais négatifs:",tn,"\n Faux positifs:",fp,"\n Faux négatifs:",fn,"\n Vrais positifs:",tp)
 
 #Accuracy score 
 
 from sklearn.metrics import accuracy_score
 
-print("Accuracy score: " ,accuracy_score(y_test, y_pred))
+#print("Accuracy score: " ,accuracy_score(y_test, y_pred))
 
 # On importe la fonction balanced_accuracy_score du module metrics de la librairie Scikit Learn
 
@@ -387,13 +388,13 @@ from sklearn.metrics import balanced_accuracy_score
 
 # On vérifie la répartition des classes
 
-print("Répartition des classes : \n",y.value_counts(),"\n")
+#print("Répartition des classes : \n",y.value_counts(),"\n")
 
 # La classe négative est surreprésentée par rapport à la classe 1.
 
 # On affiche la balanced accuracy du modèle 
 
-print("Balanced accuracy:",balanced_accuracy_score(y_test,y_pred))
+#print("Balanced accuracy:",balanced_accuracy_score(y_test,y_pred))
 
 # Les résultats obtenus avec la balanced accuracy sont  plus faibles que ceux obtenus avec 
 # l'accuracy : 0.70 contre 0.79. 
