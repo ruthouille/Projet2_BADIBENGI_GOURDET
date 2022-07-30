@@ -11,6 +11,7 @@ from random import seed
 from random import choice
 from random import shuffle
 import numpy as np
+import json
 from pydantic import BaseModel
 from churn_de_badibengi_gourdet import  y_pred_test_knn, y_pred_clf, y_pred, accuracy_knn, accuracy_clf, accuracy_lr, balance_accuracy, coeff, intercept, odd_ratios, tn, fp, fn, tp
 
@@ -78,23 +79,36 @@ def read_current_user(username: str = Depends(get_username)):
 # GET '/kneighbors/predict' returns the prediction
 @api.get("/kneighbors/predict", tags=["KNeighborsClassifier"])
 def read_kneighbors_predict(username: str = Depends(get_username)):
-    """Returns the 10 first KNeighborsClassifier predictions
+    """Returns the the 10 first KNeighborsClassifier predictions
     """
-    return y_pred_test_knn[:10]
+    l = []
+    for i in range(0,y_pred_test_knn.shape[0]):
+       l.append(int(y_pred_test_knn[i]))
+
+    return l[:10]
 
 # GET '/dtree/predict' returns the prediction
 @api.get("/dtree/predict", tags=["DecisionTreeClassifier"])
 def read_dtree_predict(username: str = Depends(get_username)):
-    """Returns the DecisionTreeClassifier prediction
+    """Returns the 10 first DecisionTreeClassifier predictions
     """
-    return y_pred_clf
+    l = []
+    for i in range(y_pred.shape[0]):
+       l.append(int(y_pred[i]))
+    return l[:10]
+    
+    
 
 # GET '/lr/predict' returns the prediction
 @api.get("/lr/predict", tags=["LogisticRegression"])
 def read_lr_predict(username: str = Depends(get_username)):
-    """Returns the LogisticRegression prediction
+    """Returns the 10 first LogisticRegression predictions
     """
-    return y_pred
+    l = []
+    for i in range(0,y_pred.shape[0]):
+       l.append(int(y_pred[i]))
+
+    return l[:10]
 
 
 #Accuracy
@@ -135,21 +149,33 @@ def read_lr_bacc(username: str = Depends(get_username)):
 def read_lr_predict(username: str = Depends(get_username)):
     """Returns the LogisticRegression coefficients
     """
-    return coeff
+    l = []
+    for i in range(0,coeff.shape[1]):
+       l.append(coeff[0][i])
+   
+    return l
+
 
 # GET '/lr/intercept' returns the intercept
 @api.get("/lr/intercept", tags=["LogisticRegression"])
 def read_lr_predict(username: str = Depends(get_username)):
     """Returns the LogisticRegression intercept
     """
-    return intercept
+    
+    intercept_json = json.dumps(str(intercept), indent = 4)
+    return intercept[0]
 
-# GET '/lr/odd_ratio' returns the intercept
+
+# GET '/lr/odd_ratio' returns the odd ratios
 @api.get("/lr/odd_ratio", tags=["LogisticRegression"])
 def read_lr_predict(username: str = Depends(get_username)):
     """Returns the LogisticRegression odd ratios
     """
-    return odd_ratios
+    l = []
+    for i in range(0,odd_ratios.shape[1]):
+       l.append(odd_ratios[0][i])
+
+    return l
 
 
 # Performance
@@ -162,9 +188,12 @@ def read_lr_cm(username: str = Depends(get_username)):
     """Returns the confusion matrice
     """
     cfm = {
-        "Vrai negatif": tn,
-        "Faux positif": fp,
-        "Faux negatif": fn,
-        "Vrai positif": tp
+        "Vrai negatif": int(tn),
+        "Faux positif": int(fp),
+        "Faux negatif": int(fn),
+        "Vrai positif": int(tp)
         }
-    return cfm
+
+    cfm_json = json.dumps(str(cfm), indent = 4)
+
+    return cfm_json
