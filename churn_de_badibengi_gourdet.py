@@ -283,7 +283,7 @@ knn.fit(X_train, y_train)
 y_pred_test_knn = knn.predict(X_test)
 
 # Affichage des 10 premières prédictions
-print(y_pred_test_knn[:10])
+#print(y_pred_test_knn[:10])
 accuracy_knn = metrics.accuracy_score(y_test, y_pred_test_knn)
 
 # On créer un decision tree de type Classifier car on est dans une problématique d'apprentissage supervisé de type régression logistique (classification)
