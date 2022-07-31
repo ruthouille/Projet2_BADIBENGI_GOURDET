@@ -152,7 +152,7 @@ def read_lr_bacc(username: str = Depends(get_username)):
 
 # GET '/lr/coeff' returns the coefficients
 @api.get("/lr/coeff", tags=["LogisticRegression"])
-def read_lr_predict(username: str = Depends(get_username)):
+def read_lr_coeff(username: str = Depends(get_username)):
     """Returns the LogisticRegression coefficients
     """
     l = []
@@ -167,7 +167,7 @@ def read_lr_predict(username: str = Depends(get_username)):
 
 # GET '/lr/intercept' returns the intercept
 @api.get("/lr/intercept", tags=["LogisticRegression"])
-def read_lr_predict(username: str = Depends(get_username)):
+def read_lr_intercept(username: str = Depends(get_username)):
     """Returns the LogisticRegression intercept
     """
     
@@ -177,7 +177,7 @@ def read_lr_predict(username: str = Depends(get_username)):
 
 # GET '/lr/odd_ratio' returns the odd ratios
 @api.get("/lr/odd_ratio", tags=["LogisticRegression"])
-def read_lr_predict(username: str = Depends(get_username)):
+def read_lr_ratio(username: str = Depends(get_username)):
     """Returns the LogisticRegression odd ratios
     """
     l = []
