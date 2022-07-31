@@ -1,4 +1,3 @@
-from httplib2 import Authentication
 import secrets
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
@@ -35,20 +34,24 @@ pswd_db = {"alice": "wonderland",
         "bob": "builder",
         "clementine": "mandarine"}
 
+correct_username = ""
+correct_password = ""
 
 def get_username(credentials: HTTPBasicCredentials = Depends(security)):
+    correct_username = credentials.username
+    correct_password = credentials.password
     for i in pswd_db.keys():
-        if i == credentials.username:
+        if (i == credentials.username) & (pswd_db[i] == credentials.password):
             correct_username = secrets.compare_digest(credentials.username, i)
             correct_password = secrets.compare_digest(credentials.password, pswd_db[i])
+            return credentials.username
     
-    if not (correct_username and correct_password):
-        raise HTTPException(
+    raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Basic"},
+            headers={"WWW-Authenticate": "Basic"}
         )
-    return credentials.username
+    
 
 
 # GET '/' returns a Welcome to verify that the API works
@@ -57,6 +60,8 @@ def get_index():
     """Endpoint to verify that the API works
     """
     return {"data": "Welcome to our API"}  
+     
+
 
 # GET '/users/me' returns the name of the user connected
 @api.get("/users/me", tags=["Home"])
@@ -73,10 +78,14 @@ def read_kneighbors_predict(username: str = Depends(get_username)):
     """Returns the the 10 first KNeighborsClassifier predictions
     """
     l = []
-    for i in range(0,y_pred_test_knn.shape[0]):
-       l.append(int(y_pred_test_knn[i]))
+    try:
+        if username:
+            for i in range(0,y_pred_test_knn.shape[0]):
+                l.append(int(y_pred_test_knn[i]))
 
-    return l[:10]
+            return l[:10]
+    except IndexError:
+        return {}
 
 # GET '/dtree/predict' returns the prediction
 @api.get("/dtree/predict", tags=["DecisionTreeClassifier"])
@@ -84,9 +93,12 @@ def read_dtree_predict(username: str = Depends(get_username)):
     """Returns the 10 first DecisionTreeClassifier predictions
     """
     l = []
-    for i in range(y_pred_clf.shape[0]):
-       l.append(int(y_pred_clf[i]))
-    return l[:10]
+    try:
+        for i in range(y_pred_clf.shape[0]):
+            l.append(int(y_pred_clf[i]))
+        return l[:10]
+    except IndexError:
+        return {}
     
     
 
@@ -96,11 +108,14 @@ def read_lr_predict(username: str = Depends(get_username)):
     """Returns the 10 first LogisticRegression predictions
     """
     l = []
-    for i in range(0,y_pred.shape[0]):
-       l.append(int(y_pred[i]))
+    try:
+        for i in range(0,y_pred.shape[0]):
+            l.append(int(y_pred[i]))
 
-    return l[:10]
-
+        return l[:10]
+    except IndexError:
+        return {}
+    
 
 #Accuracy
 
@@ -141,11 +156,14 @@ def read_lr_predict(username: str = Depends(get_username)):
     """Returns the LogisticRegression coefficients
     """
     l = []
-    for i in range(0,coeff.shape[1]):
-       l.append(coeff[0][i])
-   
-    return l
+    try:
+        for i in range(0,coeff.shape[1]):
+            l.append(coeff[0][i])
+        return l
 
+    except IndexError:
+        return {}
+    
 
 # GET '/lr/intercept' returns the intercept
 @api.get("/lr/intercept", tags=["LogisticRegression"])
@@ -163,11 +181,13 @@ def read_lr_predict(username: str = Depends(get_username)):
     """Returns the LogisticRegression odd ratios
     """
     l = []
-    for i in range(0,odd_ratios.shape[1]):
-       l.append(odd_ratios[0][i])
-
-    return l
-
+    try:
+        for i in range(0,odd_ratios.shape[1]):
+            l.append(odd_ratios[0][i])
+        return l
+    except IndexError:
+        return {}
+    
 
 # Performance
 
