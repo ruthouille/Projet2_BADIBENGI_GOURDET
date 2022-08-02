@@ -7,13 +7,8 @@ import sys
 import urllib
 
 # définition de l'adresse de l'API
-# TO BE MODIFY FOR DOCKER-COMPOSE
-api_address = '127.0.0.1'
-# port de l'API
-api_port = 8000
-
 sortie = ""
-url = "http://127.0.0.1:8000/users/me"
+url = "http://172.50.0.6:8000/users/me"
 session = requests.Session()
 retry = Retry(connect=3, backoff_factor=0.5)
 adapter = HTTPAdapter(max_retries=retry)

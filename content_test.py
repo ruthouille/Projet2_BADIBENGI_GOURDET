@@ -9,11 +9,7 @@ from churn_de_badibengi_gourdet import  y_pred_test_knn, y_pred_clf, y_pred, acc
 
 
 # définition de l'adresse de l'API
-# TO BE MODIFY FOR DOCKER-COMPOSE
-api_address = '127.0.0.1'
-# port de l'API
-api_port = 8000
-adr= "http://127.0.0.1:8000"
+adr= "http://172.50.0.6:8000"
 sortie = ""
 
 session = requests.Session()
