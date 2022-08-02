@@ -1,0 +1,13 @@
+FROM ubuntu:20.04
+
+ADD content_test/requirements.txt content_test/content_test.py content_test/churn_de_badibengi_gourdet.py ./
+
+RUN apt update && apt install python3-pip -y && pip install -r requirements.txt
+
+EXPOSE 8000
+CMD python3 content_test.py
+
+
+
+
+

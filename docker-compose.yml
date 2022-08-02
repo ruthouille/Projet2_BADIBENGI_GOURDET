@@ -1,0 +1,50 @@
+version: "3.9"
+networks:
+  api_network:
+    ipam:
+      config:
+        - subnet: 172.50.0.0/16
+
+services:
+  api:
+    image: ml_api:1.0.0
+    container_name: my_api
+    networks:
+      api_network:
+        ipv4_address: 172.50.0.6
+    ports:
+            - "8080:8080"
+  test1:
+    image: test1:latest
+    container_name: test1_container
+    environment:
+      - LOG=1
+    networks:
+      api_network:
+        ipv4_address: 172.50.0.7
+    volumes:
+      - my_vol:/home/data
+  test2:
+    image: test2:latest
+    container_name: test2_container
+    environment:
+      - LOG=1
+    networks:
+      api_network:
+        ipv4_address: 172.50.0.8
+    volumes:
+      - my_vol:/home/data
+  test3:
+    image: test3:latest
+    container_name: test3_container
+    environment:
+      - LOG=1
+    networks:
+      api_network:
+        ipv4_address: 172.50.0.9
+    volumes:
+      - my_vol:/home/data
+volumes:
+  my_vol:
+    external: true
+    

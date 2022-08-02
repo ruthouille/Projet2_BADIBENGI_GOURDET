@@ -1,0 +1,10 @@
+FROM ubuntu:20.04
+
+ADD authen_test/requirements.txt authen_test/authentication_test.py ./
+
+
+RUN apt update && apt install python3-pip -y && pip install -r requirements.txt
+
+#WORKDIR /authen_test/
+EXPOSE 8000
+CMD python3 authentication_test.py
