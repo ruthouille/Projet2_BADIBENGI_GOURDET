@@ -25,7 +25,7 @@ services:
       api_network:
         ipv4_address: 172.50.1.10
     volumes:
-      - my_vol:/home/data
+      - .:/home/data
   test2:
     restart: always
     image: test2:1.0.0
@@ -36,7 +36,7 @@ services:
       api_network:
         ipv4_address: 172.50.0.5
     volumes:
-      - my_vol:/home/data
+      - .:/home/data
   test3:
     restart: always
     image: test3:1.0.0
@@ -47,7 +47,7 @@ services:
       api_network:
         ipv4_address: 172.50.0.9
     volumes:
-      - my_vol:/home/data
+      - .:/home/data
 volumes:
   my_vol:
     external: true

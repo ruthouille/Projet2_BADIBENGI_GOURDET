@@ -1,11 +1,12 @@
 import os
+from time import time
 import requests
 from requests.adapters import HTTPAdapter
 from fastapi import HTTPException, status
 from urllib3.util.retry import Retry
 import sys
 import urllib
-
+import time
 
 # définition de l'adresse de l'API
 api_port = 8000
@@ -19,18 +20,18 @@ session.mount('http://', adapter)
 session.mount('https://', adapter)
 
 
-
+time.sleep(8)
 # Authorization tests
 
 #Test if Alice has access to KNeighbors, DecisionTree and LogisticRegression predictions
 def test_knn_predict_alice_auth():
 
     url = adr + "/kneighbors/predict"
+
     # requête
-    
     r = session.get(url, auth=("alice", "wonderland"), proxies=urllib.request.getproxies(), timeout=(10,3))
-    # statut de la requête
-    
+
+    # statut de la requête    
     status_code = r.status_code
 
     # affichage des résultats
@@ -48,10 +49,11 @@ def test_knn_predict_alice_auth():
 
 def test_dt_predict_alice_auth():
     url = adr + "/dtree/predict"
+
     # requête
     r = session.get(url, auth=("alice", "wonderland"), proxies=urllib.request.getproxies(), timeout=(10,3))
+
     # statut de la requête
-    
     status_code = r.status_code
 
     # affichage des résultats
@@ -67,10 +69,11 @@ def test_dt_predict_alice_auth():
 
 def test_lr_predict_alice_auth():
     url = adr + "/lr/predict"
+
     # requête
+
     r = session.get(url, auth=("alice", "wonderland"), proxies=urllib.request.getproxies(), timeout=(10,3))
     # statut de la requête
-    
     status_code = r.status_code
 
     # affichage des résultats
@@ -171,7 +174,6 @@ def test_lr_coeff_clem_auth():
     r = session.get(url, auth=("clementine", "mandarine"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête
-    
     status_code = r.status_code
 
     # affichage des résultats
@@ -191,7 +193,6 @@ def test_lr_inter_clem_auth():
     r = session.get(url, auth=("clementine", "mandarine"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête
-    
     status_code = r.status_code
 
     # affichage des résultats
@@ -212,7 +213,6 @@ def test_lr_oddr_jeff_auth():
     r = session.get(url, auth=("jeff", "hello"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête
-    
     status_code = r.status_code
 
     # affichage des résultats
@@ -232,7 +232,6 @@ def test_lr_cfm_jeff_auth():
     r = session.get(url, auth=("jeff", "hello"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête
-    
     status_code = r.status_code
 
     # affichage des résultats

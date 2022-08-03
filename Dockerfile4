@@ -6,8 +6,3 @@ RUN apt update && apt install python3-pip -y && pip install -r requirements.txt
 
 EXPOSE 8000
 CMD python3 content_test.py
-
-
-
-
-

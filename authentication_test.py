@@ -5,6 +5,7 @@ from fastapi import HTTPException, status
 from urllib3.util.retry import Retry
 import sys
 import urllib
+import time
 
 # définition de l'adresse de l'API
 sortie = ""
@@ -16,16 +17,10 @@ session.mount('http://', adapter)
 session.mount('https://', adapter)
 
 # Authentication tests
-
+time.sleep(6)
 #Test if Alice has access to the API
 def test_account1():
     # requête
-    """
-    requests.adapters.DEFAULT_RETRIES = 5 # increase retries number
-    r = requests.session()
-    r.keep_alive = False # disable keep alive
-    """
-    #r = session.get(url, auth=("alice", "wonderland"))
     r = session.get(url, auth=("alice", "wonderland"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête  
@@ -46,12 +41,6 @@ def test_account1():
 #Test if Bob has access to the API
 def test_account2():
     # requête
-    """
-    requests.adapters.DEFAULT_RETRIES = 5 # increase retries number
-    r = requests.session()
-    r.keep_alive = False # disable keep alive
-    """
-    #r = session.get(url, auth=("bob", "builder"))
     r = session.get(url, auth=("bob", "builder"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête
@@ -71,16 +60,9 @@ def test_account2():
 #Test if Clementine has access to the API
 def test_account3():
     # requête
-    """
-    requests.adapters.DEFAULT_RETRIES = 5 # increase retries number
-    r = requests.session()
-    r.keep_alive = False # disable keep alive
-    r = r.get(url, auth=("clementine", "mandarine"))
-    """
     r = session.get(url, auth=("clementine", "mandarine"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête
-    
     status_code = r.status_code
 
     # affichage des résultats
@@ -96,12 +78,6 @@ def test_account3():
 #Test if Jeff has not access to the API
 def test_account4():
     # requête
-    """
-    requests.adapters.DEFAULT_RETRIES = 5 # increase retries number
-    r = requests.session()
-    r.keep_alive = False # disable keep alive
-    r = r.get(url, auth=("jeff", "hello"))
-    """
     r = session.get(url, auth=("jeff", "hello"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête
