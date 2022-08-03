@@ -45,19 +45,19 @@ mv autho_test/requirements3.txt autho_test/requirements.txt
 mv content_test/requirements4.txt content_test/requirements.txt
 
 
-#cd api_myapi
-#docker image build . -t ml_api:1.0.0
+cd api_myapi
+docker image build . -t ml_api:1.0.0
 
-#cd ../authen_test
-#docker image build . -t test1:1.0.0
+cd ../authen_test
+docker image build . -t test1:1.0.0
 
-#cd ../autho_test
-#docker image build . -t test2:1.0.0
+cd ../autho_test
+docker image build . -t test2:1.0.0
 
-#cd ../content_test
-#docker image build . -t test3:1.0.0
+cd ../content_test
+docker image build . -t test3:1.0.0
 
-#cd ../
+cd ../
 
 mkdir data
 docker volume create my_vol
