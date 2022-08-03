@@ -6,7 +6,7 @@ Commandes pour construire le container docker dans le répertoire racine :
 1) Renommer le répertoire "api_churn"
 
 2) Utiliser la commande suivante: 
-• docker build . -t api_churn .
+• docker build . -t api_churn
 
 Commandes pour ajouter l'API sur dockerhub :
 • docker login --username lgourdet--password ...
