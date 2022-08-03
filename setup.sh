@@ -21,10 +21,11 @@ mv authorization_test.py autho_test
 mv content_test.py content_test
 mv churn_de_badibengi_gourdet2.py content_test
 
+mv requirements3.txt autho_test
 
 mv requirements.txt api_myapi
 mv requirements2.txt authen_test
-mv requirements3.txt autho_test
+
 mv requirements4.txt content_test
 
 
@@ -43,19 +44,21 @@ mv authen_test/requirements2.txt authen_test/requirements.txt
 mv autho_test/requirements3.txt autho_test/requirements.txt
 mv content_test/requirements4.txt content_test/requirements.txt
 
-cd api_myapi
-docker image build . -t ml_api:latest
 
-cd ../authen_test
-docker image build . -t test1:latest
+#cd api_myapi
+#docker image build . -t ml_api:1.0.0
 
-cd ../autho_test
-docker image build . -t test2:latest
+#cd ../authen_test
+#docker image build . -t test1:1.0.0
 
-cd ../content_test
-docker image build . -t test3:latest
+#cd ../autho_test
+#docker image build . -t test2:1.0.0
 
-cd ../
+#cd ../content_test
+#docker image build . -t test3:1.0.0
+
+#cd ../
+
 mkdir data
 docker volume create my_vol
 

@@ -6,9 +6,10 @@ from urllib3.util.retry import Retry
 import sys
 import urllib
 
+
 # définition de l'adresse de l'API
 api_port = 8000
-adr= "http://172.50.0.6:8000"
+adr= "http://172.50.0.3:8000"
 sortie = ""
 
 session = requests.Session()
@@ -18,13 +19,16 @@ session.mount('http://', adapter)
 session.mount('https://', adapter)
 
 
+
 # Authorization tests
 
 #Test if Alice has access to KNeighbors, DecisionTree and LogisticRegression predictions
-def test_knn_predict_alice():
+def test_knn_predict_alice_auth():
+
     url = adr + "/kneighbors/predict"
     # requête
-    r = requests.get(url, auth=("alice", "wonderland"))
+    
+    r = session.get(url, auth=("alice", "wonderland"), proxies=urllib.request.getproxies(), timeout=(10,3))
     # statut de la requête
     
     status_code = r.status_code
@@ -35,15 +39,17 @@ def test_knn_predict_alice():
     else:
         test_status = 'FAILURE'
     output = "Test 1 knn predict - alice:\nStatus code = " + str(status_code) + " et Test status = " + test_status + "\n"
+    
     r.close()
-
+    
     return output
 
 
-def test_dt_predict_alice():
+
+def test_dt_predict_alice_auth():
     url = adr + "/dtree/predict"
     # requête
-    r = requests.get(url, auth=("alice", "wonderland"))
+    r = session.get(url, auth=("alice", "wonderland"), proxies=urllib.request.getproxies(), timeout=(10,3))
     # statut de la requête
     
     status_code = r.status_code
@@ -59,10 +65,10 @@ def test_dt_predict_alice():
     return output
 
 
-def test_lr_predict_alice():
+def test_lr_predict_alice_auth():
     url = adr + "/lr/predict"
     # requête
-    r = requests.get(url, auth=("alice", "wonderland"))
+    r = session.get(url, auth=("alice", "wonderland"), proxies=urllib.request.getproxies(), timeout=(10,3))
     # statut de la requête
     
     status_code = r.status_code
@@ -79,11 +85,11 @@ def test_lr_predict_alice():
 
 
 #Test if Bob has access to KNeighbors, DecisionTree and LogisticRegression accuracy
-def test_knn_accuracy_bob():
+def test_knn_accuracy_bob_auth():
     url = adr + "/kneighbors/accuracy"
 
     # requête
-    r = requests.get(url, auth=("bob", "builder"))
+    r = session.get(url, auth=("bob", "builder"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête
     status_code = r.status_code
@@ -98,11 +104,11 @@ def test_knn_accuracy_bob():
     return output
 
 
-def test_dt_accuracy_bob():
+def test_dt_accuracy_bob_auth():
     url = adr + "/dtree/accuracy"
 
     # requête
-    r = requests.get(url, auth=("bob", "builder"))
+    r = session.get(url, auth=("bob", "builder"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête
     status_code = r.status_code
@@ -117,11 +123,11 @@ def test_dt_accuracy_bob():
     return output
 
 
-def test_lr_accuracy_bob():
+def test_lr_accuracy_bob_auth():
     url = adr + "/lr/accuracy"
 
     # requête
-    r = requests.get(url, auth=("bob", "builder"))
+    r = session.get(url, auth=("bob", "builder"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête
     status_code = r.status_code
@@ -138,11 +144,11 @@ def test_lr_accuracy_bob():
 
 
 #Test if Clementine has access to the LogisticRegression balance accuracy, coefficient and intercept
-def test_lr_baccuracy_clem():
+def test_lr_baccuracy_clem_auth():
     url = adr + "/lr/baccuracy"
 
     # requête
-    r = requests.get(url, auth=("clementine", "mandarine"))
+    r = session.get(url, auth=("clementine", "mandarine"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête
     
@@ -158,11 +164,11 @@ def test_lr_baccuracy_clem():
     return output
 
 
-def test_lr_coeff_clem():
+def test_lr_coeff_clem_auth():
     url = adr + "/lr/coeff"
 
     # requête
-    r = requests.get(url, auth=("clementine", "mandarine"))
+    r = session.get(url, auth=("clementine", "mandarine"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête
     
@@ -178,11 +184,11 @@ def test_lr_coeff_clem():
     return output
 
 
-def test_lr_inter_clem():
+def test_lr_inter_clem_auth():
     url = adr + "/lr/intercept"
 
     # requête
-    r = requests.get(url, auth=("clementine", "mandarine"))
+    r = session.get(url, auth=("clementine", "mandarine"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête
     
@@ -199,11 +205,11 @@ def test_lr_inter_clem():
 
 
 #Test if Jeff has not access to the odd ration and the confusion matrice results
-def test_lr_oddr_jeff():
+def test_lr_oddr_jeff_auth():
     url = adr + "/lr/odd_ratio"
 
     # requête
-    r = requests.get(url, auth=("jeff", "hello"))
+    r = session.get(url, auth=("jeff", "hello"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête
     
@@ -219,11 +225,11 @@ def test_lr_oddr_jeff():
     return output
 
 
-def test_lr_cfm_jeff():
+def test_lr_cfm_jeff_auth():
     url = adr + "/lr/cfm"
 
     # requête
-    r = requests.get(url, auth=("jeff", "hello"))
+    r = session.get(url, auth=("jeff", "hello"), proxies=urllib.request.getproxies(), timeout=(10,3))
 
     # statut de la requête
     
@@ -239,7 +245,7 @@ def test_lr_cfm_jeff():
     return output
 
 
-sortie = "Authorization\n" + test_knn_predict_alice() + test_dt_predict_alice() + test_lr_predict_alice() + test_knn_accuracy_bob() + test_dt_accuracy_bob() + test_lr_accuracy_bob() + test_lr_baccuracy_clem() + test_lr_coeff_clem() + test_lr_inter_clem() + test_lr_oddr_jeff() + test_lr_cfm_jeff() + "\n"
+sortie = "Authorization\n" + test_knn_predict_alice_auth() + test_dt_predict_alice_auth() + test_lr_predict_alice_auth() + test_knn_accuracy_bob_auth() + test_dt_accuracy_bob_auth() + test_lr_accuracy_bob_auth() + test_lr_baccuracy_clem_auth() + test_lr_coeff_clem_auth() + test_lr_inter_clem_auth() + test_lr_oddr_jeff_auth() + test_lr_cfm_jeff_auth() + "\n"
 
 # impression dans un fichier
 #if os.environ.get('LOG') == 1:

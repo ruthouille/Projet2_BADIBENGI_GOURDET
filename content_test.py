@@ -9,7 +9,7 @@ from churn_de_badibengi_gourdet import  y_pred_test_knn, y_pred_clf, y_pred, acc
 
 
 # définition de l'adresse de l'API
-adr= "http://172.50.0.6:8000"
+adr= "http://172.50.0.3:8000"
 sortie = ""
 
 session = requests.Session()
@@ -25,7 +25,7 @@ session.mount('https://', adapter)
 def test_knn_predict_alice():
     url = adr + "/kneighbors/predict"
     # requête
-    r = requests.get(url, auth=("alice", "wonderland"))
+    r = session.get(url, auth=("alice", "wonderland"))
     
     l = []
 
@@ -50,7 +50,7 @@ def test_knn_predict_alice():
 def test_dt_predict_alice():
     url = adr + "/dtree/predict"
     # requête
-    r = requests.get(url, auth=("alice", "wonderland"))
+    r = session.get(url, auth=("alice", "wonderland"))
     l = []
 
     # format json de la reponse    
@@ -74,7 +74,7 @@ def test_dt_predict_alice():
 def test_lr_predict_alice():
     url = adr + "/lr/predict"
     # requête
-    r = requests.get(url, auth=("alice", "wonderland"))
+    r = session.get(url, auth=("alice", "wonderland"))
     l = []
 
     # format json de la reponse    
@@ -100,7 +100,7 @@ def test_knn_accuracy_bob():
     url = adr + "/kneighbors/accuracy"
 
     # requête
-    r = requests.get(url, auth=("bob", "builder"))
+    r = session.get(url, auth=("bob", "builder"))
 
     # format json de la reponse  
     results = r.json()
@@ -119,7 +119,7 @@ def test_dt_accuracy_bob():
     url = adr + "/dtree/accuracy"
 
     # requête
-    r = requests.get(url, auth=("bob", "builder"))
+    r = session.get(url, auth=("bob", "builder"))
 
     # format json de la reponse  
     results = r.json()
@@ -138,7 +138,7 @@ def test_lr_accuracy_bob():
     url = adr + "/lr/accuracy"
 
     # requête
-    r = requests.get(url, auth=("bob", "builder"))
+    r = session.get(url, auth=("bob", "builder"))
 
     # format json de la reponse  
     results = r.json()
@@ -158,7 +158,7 @@ def test_lr_baccuracy_clem():
     url = adr + "/lr/baccuracy"
 
     # requête
-    r = requests.get(url, auth=("clementine", "mandarine"))
+    r = session.get(url, auth=("clementine", "mandarine"))
 
    # format json de la reponse  
     results = r.json()
@@ -177,7 +177,7 @@ def test_lr_coeff_clem():
     url = adr + "/lr/coeff"
 
     # requête
-    r = requests.get(url, auth=("clementine", "mandarine"))
+    r = session.get(url, auth=("clementine", "mandarine"))
     l = []
 
     # format json de la reponse  
@@ -200,7 +200,7 @@ def test_lr_inter_clem():
     url = adr + "/lr/intercept"
 
     # requête
-    r = requests.get(url, auth=("clementine", "mandarine"))
+    r = session.get(url, auth=("clementine", "mandarine"))
 
    # format json de la reponse  
     results = r.json()
@@ -219,7 +219,7 @@ def test_lr_oddr_clem():
     url = adr + "/lr/odd_ratio"
 
     # requête
-    r = requests.get(url, auth=("clementine", "mandarine"))
+    r = session.get(url, auth=("clementine", "mandarine"))
     l = []
 
     # format json de la reponse  
@@ -244,3 +244,5 @@ sortie = "Content\n" + test_knn_predict_alice() + test_dt_predict_alice() + test
 #if os.environ.get('LOG') == 1:
 with open('api_test.log', 'a') as file:
         file.write(sortie)
+
+session.cookies.keys()
