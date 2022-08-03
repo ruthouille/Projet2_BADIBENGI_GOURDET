@@ -63,4 +63,3 @@ ssh -i "data_enginering_machine.pem" ubuntu@(ip VM) -fNL
 • API disponible sur : http://127.0.0.1:8000/docs
 • VM : Dashboard k8s disponible sur : 
 http://(ip_VM):8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy
->>>>>>> 9479db62cbc01ffa65fe4b6cd55bb9818d6875d6
