@@ -17,18 +17,18 @@ spec:
     spec:
       containers:
       - name: ml-api
-        image: rutb/ml_api:1.0.0
+        image: rutb/ml_api:1.0.1
         ports:
         - containerPort: 8000
       - name: test1
-        image: rutb/test1:1.0.0
+        image: rutb/test1:1.0.1
         ports:
         - containerPort: 3306
       - name: test2
-        image: rutb/test2:1.0.0
+        image: rutb/test2:1.0.1
         ports:
         - containerPort: 4400
       - name: test3
-        image: rutb/test3:1.0.0
+        image: rutb/test3:1.0.1
         ports:
         - containerPort: 9606
