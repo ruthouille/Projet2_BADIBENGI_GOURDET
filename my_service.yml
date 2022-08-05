@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ml-api-service
+  labels:
+    app: my-app
+spec:
+  type: ClusterIP
+  ports:
+  - name: ml_api
+    port: 8001
+    protocol: TCP
+    targetPort: 8000   
+  - name: test1
+    port: 3306
+    protocol: TCP
+    targetPort: 3316
+  - name: test2
+    port: 7006
+    protocol: TCP
+    targetPort: 7016
+  - name: test3
+    port: 9606
+    protocol: TCP
+    targetPort: 9616
+    name: http
+  selector:
+    app: my-app
