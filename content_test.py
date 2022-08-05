@@ -6,7 +6,7 @@ from urllib3.util.retry import Retry
 import sys
 import urllib
 from churn_de_badibengi_gourdet import  y_pred_test_knn, y_pred_clf, y_pred, accuracy_knn, accuracy_clf, accuracy_lr, balance_accuracy, coeff, intercept, odd_ratios, tn, fp, fn, tp
-
+import time
 
 # définition de l'adresse de l'API
 adr= "http://172.50.0.3:8000"
@@ -19,6 +19,7 @@ session.mount('http://', adapter)
 session.mount('https://', adapter)
 
 
+time.sleep(10)
 # Authorization tests
 
 #Test the content for KNeighbors, DecisionTree and LogisticRegression predictions with the account of alice
