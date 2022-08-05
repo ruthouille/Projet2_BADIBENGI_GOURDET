@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ml-api
+  name: ml-api-deployment
   labels:
     app: my-app
   
@@ -9,11 +9,11 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: ml-api
+      app: ml-api-deployment
   template:
     metadata:
       labels:
-        app: ml-api
+        app: ml-api-deployment
     spec:
       containers:
       - name: ml-api
