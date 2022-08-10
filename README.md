@@ -1,6 +1,8 @@
 # Projet2_BADIBENGI_GOURDET
 Depo for our second datascience project
 
+API
+
 #Description:
     L'API contient 13 chemins:
         - "/": est le "endpoint" qui verifie que l'API fonctionne correctement et retourne "Welcome to our API"
@@ -23,28 +25,41 @@ Depo for our second datascience project
 
 #Instructions:
 - Etape 1:
+    Si on veut lancer l'api seul, il est possible de lancer la commande suivante:
+    • docker build . -t api_churn:latest
+
+    Cette commande va créer l'image de notre API à partir de notre Dockerfile. 
+
+    On pourra lancer la commande suivante afin de lancer notre API:
+    • docker container run -it api_churn:latest
+
+    Ainsi, notre API sera en marche.
+
+
+- Etape 2:
     Afin de lancer l'api en même temps que les tests, il faut lancer la commande suivante:
-        sh setup.sh
+        • sh setup.sh
     Cela va lancer un docker-compose, et creer 4 containers:
         - l'API
         - Test 1: qui est le test d'authentification
         - Test 2: qui est le test d'autorisation
         - Test 3: qui verifie que les bonnes valeurs sont obtenues 
     
-- Etape 2:
-Commandes pour construire le container docker dans le répertoire racine :
+- Dockerfile permet de créer l'image de notre API
+- Dockerfile 2 permet de créer l'image du test d'authentification
+- Dockerfile 3 permet de créer l'image du test d'authorisation
+- Dockerfile 2 permet de créer l'image du test des valeurs
 
-1) Renommer le répertoire "api_churn"
 
-2) Utiliser la commande suivante: 
-• docker build . -t api_churn
+Kubernetes
 
 Commandes pour ajouter l'API sur dockerhub :
 • docker login --username lgourdet--password ...
 • docker tag api_churn lgourdet/api_churn
 • docker image push lgourdet/api_churn:latest
 
-Kubernetes
+Attention, les images ont déjà était ajouter sur Dockerhuh, on peut voir le nom des images dans les fichier my_deployment.yml ainsi que my_service.yml. Donc tout a été fait au péalable
+
 Pour permettre le déploiement de l'API sur 3 Pods un fichier de déploiement, un service et un ingress
 ont été créés dans le répertoire.
 
@@ -54,9 +69,9 @@ Commandes pour construire le déploiement k8s :
 • minikube addons enable ingress
 • minikube dashboard --url=true
 • VM : kubectl proxy --address='0.0.0.0' --disable-filter=true
-• kubectl create -f deployment.yml
-• kubectl create -f service.yml
-• kubectl create -f ingress.yml
+• kubectl create -f my_deployment.yml
+• kubectl create -f my_service.yml
+• kubectl create -f my_ingress.yml
 • VM : ouvrir un tunnel : 
 ssh -i "data_enginering_machine.pem" ubuntu@(ip VM) -fNL 
 8000:192.168.49.2:80
