@@ -25,7 +25,7 @@ API
 
 #Instructions:
 - Etape 1:
-    Si on veut lancer l'api seul, il est possible de lancer la commande suivante:
+    Si on veut lancer l'api seule, il est possible de lancer la commande suivante:
     • docker build . -t api_churn:latest
 
     Cette commande va créer l'image de notre API à partir de notre Dockerfile. 
@@ -53,17 +53,17 @@ API
 
 Kubernetes
 
-Commandes pour ajouter l'API sur dockerhub :
+Attention, les images ont déjà été ajouté sur Dockerhuh, on peut voir le nom des images dans les fichiers my_deployment.yml ainsi que my_service.yml. Donc, tout a été fait au préalable.
+
+Nous avons utilisé les commandes suivantes pour ajouter l'API sur Dockerhub :
 • docker login --username lgourdet--password ...
 • docker tag api_churn lgourdet/api_churn
 • docker image push lgourdet/api_churn:latest
 
-Attention, les images ont déjà était ajouter sur Dockerhuh, on peut voir le nom des images dans les fichier my_deployment.yml ainsi que my_service.yml. Donc tout a été fait au péalable
-
 Pour permettre le déploiement de l'API sur 3 Pods un fichier de déploiement, un service et un ingress
 ont été créés dans le répertoire.
 
-Commandes pour construire le déploiement k8s :
+Afin d'effectuer le déploiement k8s nous avons utilisé les commandes suivantes:
 
 • minikube start
 • minikube addons enable ingress
